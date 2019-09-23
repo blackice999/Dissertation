@@ -1,6 +1,7 @@
 package com.dissertation.data.product.factory
 
 import com.dissertation.data.product.Product
+import com.dissertation.data.product.Review
 import com.dissertation.data.product.generator.RandomNumberGenerator
 import com.dissertation.data.product.specs.Specs
 
@@ -10,24 +11,14 @@ abstract class BaseProductFactory {
     protected abstract fun createSpecs(): Specs
     protected abstract fun createBrandsList(): List<String>
 
-    private fun createReviewsList(): List<Int> {
-        val reviews = mutableListOf<Int>()
+    private fun createReviewsList(): List<Review> {
+        val reviews = mutableListOf<Review>()
         (0 until RandomNumberGenerator.generate((0..MAX_REVIEWS_NUMBER))).asSequence()
-            .forEach { _ ->
-                reviews.add(RandomNumberGenerator.generate((1..5)))
+            .forEach {
+                reviews.add(Review("Comment $it", RandomNumberGenerator.generate((1..5))))
             }
 
         return reviews
-    }
-
-    private fun createCommentsList(): List<String> {
-        val comments = mutableListOf<String>()
-        (0 until RandomNumberGenerator.generate((0..MAX_COMMENTS_NUMBER))).asSequence()
-            .forEach {
-                comments.add("Comment $it")
-            }
-
-        return comments
     }
 
     fun generate(): List<Product> {
@@ -42,7 +33,6 @@ abstract class BaseProductFactory {
                     .price(createPrice())
                     .quantity(createQuantity())
                     .reviews(createReviewsList())
-                    .comments(createCommentsList())
                     .specs(createSpecs())
                     .build()
             )
@@ -58,7 +48,6 @@ abstract class BaseProductFactory {
 
     companion object {
         private const val MAX_PRODUCTS_NUMBER = 10000
-        private const val MAX_COMMENTS_NUMBER = 10
         private const val MAX_REVIEWS_NUMBER = 50
         private const val MAX_PRICE = 1000
         private const val MAX_QUANTITY = 5000
