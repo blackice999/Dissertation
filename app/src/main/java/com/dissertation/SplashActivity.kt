@@ -6,6 +6,7 @@ import androidx.lifecycle.observe
 import com.dissertation.viewmodel.SplashViewModel
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
@@ -19,14 +20,15 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        splashViewModel.loadingLiveData.observe(this) { shouldShow ->
-            if (shouldShow.isLoading) showLoadingView() else hideLoadingView()
+        splashViewModel.progressLiveData.observe(this) { progress ->
+            if (progress.show) showLoadingView() else hideLoadingView(progress.message)
         }
     }
 
     private fun showLoadingView() = progressBar.show()
 
-    private fun hideLoadingView() {
+    private fun hideLoadingView(message: String) {
+        toast(message)
         startActivity<MainActivity>()
         finish()
         progressBar.hide()

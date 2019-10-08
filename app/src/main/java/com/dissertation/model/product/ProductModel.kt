@@ -5,9 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class ProductModel(val productRepo: ProductRepo) {
-    suspend fun getProductsCount(): Int {
-        return productRepo.getProductsCount()
-    }
+
+    suspend fun getProductsCount() = productRepo.getProductsCount()
+
 
     suspend fun getProducts() = withContext(Dispatchers.Default) {
         productRepo.getProducts()

@@ -8,7 +8,7 @@ class SplashViewModel(val productModel: ProductModel) : BaseViewModel() {
 
     init {
         viewModelScope.launch {
-            loadingLiveData.value = LoadingEventResponse(!productModel.init())
+            progressLiveData.value = ProgressViewData(!productModel.init(), "Generated products")
         }
     }
 }

@@ -30,7 +30,7 @@ class AppModule {
     }
 
     private val mvvmModule = module {
-        factory<ProductRepo> { ProductRepoImpl(get(), get()) }
+        factory<ProductRepo> { ProductRepoImpl(get(), get(), get()) }
         factory { ProductModel(get()) }
 
         viewModel {
