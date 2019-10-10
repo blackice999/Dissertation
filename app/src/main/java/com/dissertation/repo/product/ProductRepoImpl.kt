@@ -5,6 +5,7 @@ import com.dissertation.model.product.Product
 import com.dissertation.model.product.Review
 import com.dissertation.repo.db.dao.ProductDao
 import com.dissertation.repo.db.dao.ReviewDao
+import com.dissertation.repo.db.entities.ReviewEntity
 import com.dissertation.repo.db.util.DBConverter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,7 +16,7 @@ class ProductRepoImpl(
     val dbConverter: DBConverter
 ) : ProductRepo {
 
-    override suspend fun init(): Boolean = prepopulateDB(dbConverter)
+    override suspend fun init(): Boolean = prepopulateDB()
 
     override suspend fun getProducts() = withContext(Dispatchers.Default) {
         val products = mutableListOf<Product>()
@@ -28,14 +29,18 @@ class ProductRepoImpl(
 
     override suspend fun getProductsCount() = productDao.count()
 
-    private suspend fun prepopulateDB(dbConverter: DBConverter) = withContext(Dispatchers.Default) {
+    private suspend fun prepopulateDB() = withContext(Dispatchers.Default) {
         if (productDao.count() == 0) {
-            ProductFactory().products.forEach { product ->
+            val products = ProductFactory().products
+            products.forEach { product ->
                 val productId = productDao.insert(dbConverter.productToDBEntity(product))
 
+                val reviewEntities = mutableListOf<ReviewEntity>()
                 product.reviews.forEach {
-                    reviewDao.insert(dbConverter.reviewToDBEntity(it, productId))
+                    reviewEntities.add(dbConverter.reviewToDBEntity(it, productId))
                 }
+
+                reviewDao.insert(reviewEntities)
             }
         }
 

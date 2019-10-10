@@ -1,6 +1,7 @@
 package com.dissertation.di
 
 import androidx.room.Room
+import com.dissertation.data.converter.JSONConverter
 import com.dissertation.model.product.ProductModel
 import com.dissertation.repo.db.AppDatabase
 import com.dissertation.repo.db.util.DBConverter
@@ -15,6 +16,7 @@ class AppModule {
     val modules by lazy { listOf(roomModule, mvvmModule) }
 
     private val roomModule = module {
+        factory { JSONConverter() }
         factory { DBConverter(get()) }
 
         single {

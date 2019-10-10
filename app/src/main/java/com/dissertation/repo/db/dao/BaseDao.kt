@@ -18,5 +18,5 @@ interface BaseDao<T> {
     suspend fun update(t: T)
 
     @Insert
-    suspend fun insert(t: List<T>)
+    suspend fun insert(t: Iterable<T>)
 }

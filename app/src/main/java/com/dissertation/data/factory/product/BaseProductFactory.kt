@@ -14,15 +14,14 @@ abstract class BaseProductFactory {
 
     private fun createReviewsList(): List<Review> {
         val reviews = mutableListOf<Review>()
-        (0 until RandomNumberGenerator.generate((0..MAX_REVIEWS_NUMBER))).asSequence()
-            .forEach {
-                reviews.add(
-                    Review(
-                        "Comment $it",
-                        RandomNumberGenerator.generate((1..5))
-                    )
+        (0 until RandomNumberGenerator.generate((0..MAX_REVIEWS_NUMBER))).forEach {
+            reviews.add(
+                Review(
+                    "Comment $it",
+                    RandomNumberGenerator.generate((1..5))
                 )
-            }
+            )
+        }
 
         return reviews
     }
@@ -31,7 +30,7 @@ abstract class BaseProductFactory {
         val productList = mutableListOf<Product>()
         val brands = createBrandsList()
 
-        (0 until MAX_PRODUCTS_NUMBER).asSequence().forEach { _ ->
+        (0 until MAX_PRODUCTS_NUMBER).forEach { _ ->
             productList.add(
                 Product.Builder()
                     .categoryId(categoryId)
@@ -53,11 +52,12 @@ abstract class BaseProductFactory {
         RandomNumberGenerator.generate((0 until MAX_PRICE)).toDouble()
 
     companion object {
-        private const val MAX_PRODUCTS_NUMBER = 10
+        private const val MAX_PRODUCTS_NUMBER = 10000
         private const val MAX_REVIEWS_NUMBER = 50
         private const val MAX_PRICE = 1000
         private const val MAX_QUANTITY = 5000
 
-        fun getTotalProductsCount() = ProductCategories.values().filter { it != ProductCategories.INVALID }.size * MAX_PRODUCTS_NUMBER
+        fun getTotalProductsCount() =
+            ProductCategories.values().filter { it != ProductCategories.INVALID }.size * MAX_PRODUCTS_NUMBER
     }
 }
