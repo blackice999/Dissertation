@@ -5,7 +5,6 @@ import com.dissertation.model.product.Product
 import com.dissertation.model.product.Review
 import com.dissertation.repo.db.dao.ProductDao
 import com.dissertation.repo.db.dao.ReviewDao
-import com.dissertation.repo.db.entities.ReviewEntity
 import com.dissertation.repo.db.util.DBConverter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,15 +31,19 @@ class ProductRepoImpl(
     private suspend fun prepopulateDB() = withContext(Dispatchers.Default) {
         if (productDao.count() == 0) {
             val products = ProductFactory().products
-            products.forEach { product ->
-                val productId = productDao.insert(dbConverter.productToDBEntity(product))
 
-                val reviewEntities = mutableListOf<ReviewEntity>()
-                product.reviews.forEach {
-                    reviewEntities.add(dbConverter.reviewToDBEntity(it, productId))
+            val productEntities = products.map {
+                dbConverter.productToDBEntity(it)
+            }
+
+            val insertIds = productDao.insertAll(productEntities)
+            insertIds.forEachIndexed { index, insertId ->
+                val productReviews = products[index].reviews
+                val reviewEntities = productReviews.map {
+                    dbConverter.reviewToDBEntity(it, insertId)
                 }
 
-                reviewDao.insert(reviewEntities)
+                reviewDao.insertAll(reviewEntities)
             }
         }
 

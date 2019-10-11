@@ -9,6 +9,9 @@ import androidx.room.Update
 interface BaseDao<T> {
 
     @Insert
+    suspend fun insertAll(t: List<T>): List<Long>
+
+    @Insert
     suspend fun insert(t: T): Long
 
     @Delete
@@ -16,7 +19,4 @@ interface BaseDao<T> {
 
     @Update
     suspend fun update(t: T)
-
-    @Insert
-    suspend fun insert(t: Iterable<T>)
 }
