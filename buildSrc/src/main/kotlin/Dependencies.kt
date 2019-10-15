@@ -40,6 +40,7 @@ object Libraries {
         const val moshi = "1.9.0-SNAPSHOT"
         const val koin = "2.0.1"
         const val anko = "0.10.8"
+        const val material = "1.1.0-beta01"
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -74,4 +75,7 @@ object Libraries {
     const val koinScope = "org.koin:koin-androidx-scope:${Versions.koin}"
 
     const val anko = "org.jetbrains.anko:anko-commons:${Versions.anko}"
+
+    const val materialComponents = "com.google.android.material:material:${Versions.material}"
+
 }

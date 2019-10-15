@@ -1,6 +1,7 @@
 package com.dissertation.app
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.dissertation.BuildConfig
 import com.dissertation.di.AppModule
 import org.koin.android.ext.koin.androidContext
@@ -13,6 +14,8 @@ class DissertationApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         initTimber()
         initKoin()
     }

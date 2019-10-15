@@ -68,4 +68,6 @@ dependencies {
     implementation(Libraries.koinScope)
 
     implementation(Libraries.anko)
+
+    implementation(Libraries.materialComponents)
 }
