@@ -1,25 +1,41 @@
 package com.dissertation.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.edit
+import androidx.lifecycle.observe
 import com.dissertation.R
+import com.dissertation.view.util.ThemeUtil
+import com.dissertation.viewmodel.ThemeViewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    val themeViewModel: ThemeViewModel by viewModel()
+    val themeUtil: ThemeUtil by inject()
+
     protected abstract fun getLayoutId(): Int
-    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-        setAppTheme(sharedPreferences.getBoolean(DARK_MODE_KEY, false))
+//        setupViewModel()
+        themeUtil.applyTheme(this)
         setContentView(getLayoutId())
+    }
+
+    protected fun setAppThemeMode(darkMode: Boolean) {
+//        themeViewModel.applyTheme(darkMode)
+        themeUtil.applyTheme(this, darkMode)
+    }
+
+    private fun setupViewModel() {
+        themeViewModel.liveData.observe(this) {
+            setTheme(R.style.DissertationLightTheme)
+            recreate()
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -29,30 +45,5 @@ abstract class BaseActivity : AppCompatActivity() {
             Configuration.UI_MODE_NIGHT_NO -> Timber.d("On light theme")
             Configuration.UI_MODE_NIGHT_YES -> Timber.d("On dark theme")
         }
-    }
-
-    fun setAppTheme(darkMode: Boolean = false) {
-        val resourceId: Int
-        if (darkMode) {
-            resourceId = R.style.DissertationDarkTheme
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            resourceId = R.style.DissertationLightTheme
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
-        persistTheme(darkMode)
-        setTheme(resourceId)
-    }
-
-    private fun persistTheme(darkMode: Boolean) {
-        if (::sharedPreferences.isInitialized) {
-            sharedPreferences.edit { putBoolean(DARK_MODE_KEY, darkMode) }
-        }
-    }
-
-    companion object {
-        const val PREFERENCE_NAME = "dissertation_preference"
-        const val DARK_MODE_KEY = "currentThemeKey"
     }
 }

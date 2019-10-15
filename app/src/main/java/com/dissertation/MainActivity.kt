@@ -11,13 +11,11 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         darkThemeButton.setOnClickListener {
-            setAppTheme(true)
-
+            setAppThemeMode(true)
         }
 
         lightThemeButton.setOnClickListener {
-            setAppTheme(false)
-
+            setAppThemeMode(false)
         }
     }
 }
