@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Dissertation</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_help">Help</string>
 </resources>

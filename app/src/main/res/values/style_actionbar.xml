@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">@color/actionBarBackground</item>
+    </style>
+</resources>

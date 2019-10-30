@@ -21,7 +21,7 @@ class ThemeUtil(val sharedPreferences: SharedPreferences) {
             recreate(activity)
             AppCompatDelegate.setDefaultNightMode(if (darkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
             persistTheme(darkMode)
-            activity.setTheme(R.style.DissertationLightTheme)
+            activity.setTheme(R.style.DissertationAppTheme)
         }
     }
 

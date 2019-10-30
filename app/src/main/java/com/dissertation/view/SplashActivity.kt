@@ -1,8 +1,10 @@
-package com.dissertation
+package com.dissertation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
+import com.dissertation.R
+import com.dissertation.view.main.MainActivity
 import com.dissertation.viewmodel.SplashViewModel
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity

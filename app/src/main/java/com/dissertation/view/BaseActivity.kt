@@ -33,7 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         themeViewModel.liveData.observe(this) {
-            setTheme(R.style.DissertationLightTheme)
+            setTheme(R.style.DissertationAppTheme)
             recreate()
         }
     }

@@ -1,20 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="DissertationLightTheme" parent="Theme.AppCompat.DayNight">
+    <style name="DissertationAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/text</item>
-        <item name="android:actionBarStyle">@style/ActionBar</item>
-    </style>
-
-    <style name="ActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:background">@color/actionBarBackground</item>
-        <item name="titleTextStyle">@style/ActionBarTitle</item>
-    </style>
-
-    <style name="ActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/text</item>
+        <item name="android:actionBarStyle">@style/AppThemeActionBar</item>
+        <item name="android:buttonStyle">@style/AppThemeButton</item>
+        <item name="android:textViewStyle">@style/AppThemeTextViewAppearance</item>
     </style>
 </resources>
